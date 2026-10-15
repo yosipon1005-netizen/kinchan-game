@@ -1,0 +1,125 @@
+<div class="game">
+  <h1>🎨 モンスターのたまご</h1>
+  <p class="subtitle">キミの絵に、命をふきこもう！</p>
+
+  <div class="controls">
+    <label class="upload">
+      🖼️ 絵をアップロード
+      <input type="file" id="upload" accept="image/*">
+    </label>
+
+    <input
+      type="text"
+      id="monsterName"
+      placeholder="モンスターの名前"
+      maxlength="12"
+    >
+
+    <button id="birthBtn">✨ 誕生させる！</button>
+  </div>
+
+  <div class="world">
+    <div class="sun">☀️</div>
+    <div class="cloud">☁️</div>
+
+    <div id="monster" class="monster">
+      <div id="placeholder">🥚</div>
+      <canvas id="monsterCanvas"></canvas>
+    </div>
+
+    <div class="ground"></div>
+  </div>
+<div class="edit-panel">
+  <button id="editBtn">🧽 背景を手動で消す</button>
+
+  <div id="editor" class="editor" hidden>
+    <p>消したい部分を指でなぞってね！</p>
+<div id="zoomArea">
+  <canvas id="editCanvas"></canvas>
+</div>
+
+<p id="zoomText">🔍 100%</p>
+<button id="resetZoomBtn">🔄 拡大をリセット</button>
+    <div class="edit-tools">
+      <label>
+        消しゴムの大きさ
+        <input
+          type="range"
+          id="brushSize"
+          min="5"
+          max="60"
+          value="20"
+        >
+      </label>
+
+      <button id="undoBtn">↩️ 元に戻す</button>
+      <button id="finishBtn">✅ 完了</button>
+    </div>
+  </div>
+</div>
+<div class="eye-panel">
+  <button id="eyeEditBtn">👀 目の動きを設定</button>
+
+  <div id="eyeEditor" hidden>
+    <p>目を1本指で囲んでね！</p>
+    <p>2本指で拡大・移動できるよ</p>
+
+    <div id="eyeZoomArea">
+      <canvas id="eyeCanvas"></canvas>
+      <div id="eyeSelection"></div>
+    </div>
+
+    <p id="eyeZoomText">🔍 100%</p>
+    <p id="eyeStatus">目を囲んでね</p>
+
+    <div class="eye-buttons">
+      <button id="eyeUndoBtn">↩️ 1つ戻す</button>
+      <button id="eyeResetZoomBtn">🔄 拡大リセット</button>
+      <button id="eyeFinishBtn">✅ 決定</button>
+    </div>
+  </div>
+<div class="nameplate" id="nameplate">
+  まだモンスターはいません
+</div>
+
+  <p class="hint">モンスターをタップするとジャンプするよ！</p>
+
+  <div class="buttons">
+    <button id="leftBtn">⬅️ 左</button>
+    <button id="jumpBtn">⬆️ ジャンプ</button>
+    <button id="rightBtn">右 ➡️</button>
+  </div>
+
+  <div class="life">
+    <!-- ===== Ver.0.9 ごはん・満腹度 ===== -->
+
+<div class="food-panel">
+  <h3>🍎 ごはん</h3>
+
+  <p id="hungerText">おなか：70 / 100</p>
+
+  <div class="hunger-bar">
+    <div id="hungerFill"></div>
+  </div>
+
+  <button id="feedBtn" type="button">
+    🍎 ごはんをあげる
+  </button>
+
+  <p id="foodMessage">
+    きのちゃんは元気いっぱい！
+  </p>
+</div>
+    <p>🎨 色彩の命（実験用）</p>
+    <input
+      type="range"
+      id="lifeSlider"
+      min="0"
+      max="100"
+      value="100"
+    >
+    <span id="lifeText">フルカラー</span>
+  </div>
+</div>
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
