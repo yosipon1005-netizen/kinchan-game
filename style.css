@@ -1,0 +1,505 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f4edff;
+  font-family: sans-serif;
+  color: #47365e;
+}
+
+.game {
+  max-width: 500px;
+  margin: auto;
+  padding: 18px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.upload {
+  background: #9b7de0;
+  color: white;
+  padding: 13px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.upload input {
+  display: none;
+}
+
+#monsterName {
+  padding: 13px;
+  border: 2px solid #d8c7ef;
+  border-radius: 12px;
+  font-size: 16px;
+}
+
+button {
+  border: none;
+  border-radius: 12px;
+  padding: 13px;
+  font-size: 15px;
+  font-weight: bold;
+  background: #ffd36d;
+  color: #513b32;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+#birthBtn {
+  background: #ff94b4;
+  color: white;
+}
+
+.world {
+  position: relative;
+  height: 330px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: linear-gradient(
+    #93d9ff 0%,
+    #dff7ff 65%,
+    #b4e7a1 65%,
+    #8ed17f 100%
+  );
+}
+
+.sun {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 45px;
+}
+
+.cloud {
+  position: absolute;
+  top: 40px;
+  left: 25px;
+  font-size: 45px;
+}
+
+.ground {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background: #6fbd67;
+}
+
+.monster {
+  position: absolute;
+  width: 160px;
+  height: 180px;
+  bottom: 40px;
+  left: calc(50% - 80px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  transform-origin: bottom center;
+  cursor: pointer;
+  z-index: 2;
+}
+
+#placeholder {
+  font-size: 100px;
+  line-height: 1;
+}
+
+#monsterCanvas {
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.monster.alive {
+  animation: breathe 2s ease-in-out infinite;
+}
+
+.monster.jump {
+  animation: jump 0.65s ease-out;
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.035, 0.975);
+  }
+}
+
+@keyframes jump {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  45% {
+    transform: translateY(-85px) rotate(-5deg);
+  }
+}
+
+.nameplate {
+  background: white;
+  padding: 12px;
+  border-radius: 12px;
+  margin-top: 12px;
+  font-weight: bold;
+}
+
+.hint {
+  font-size: 13px;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.buttons button {
+  flex: 1;
+}
+
+.life {
+  background: white;
+  border-radius: 15px;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+.life input {
+  width: 100%;
+}
+/* 背景編集機能 */
+
+.edit-panel {
+  margin-top: 15px;
+}
+
+#editBtn {
+  width: 100%;
+  background: #9b7de0;
+  color: white;
+}
+
+.editor {
+  margin-top: 12px;
+  padding: 15px;
+  background: white;
+  border-radius: 15px;
+}
+
+.editor[hidden] {
+  display: none;
+}
+
+#editCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 350px;
+  object-fit: contain;
+  margin: 10px auto;
+  border: 2px solid #d8c7ef;
+  border-radius: 10px;
+  background-color: #e8f5e9;
+  background-image:
+    linear-gradient(45deg, #ddd 25%, transparent 25%),
+    linear-gradient(-45deg, #ddd 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ddd 75%),
+    linear-gradient(-45deg, transparent 75%, #ddd 75%);
+  background-size: 20px 20px;
+  background-position:
+    0 0,
+    0 10px,
+    10px -10px,
+    -10px 0;
+  touch-action: none;
+}
+
+.edit-tools {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-tools input {
+  width: 100%;
+}
+
+#finishBtn {
+  background: #7bd88f;
+}
+/* 拡大・縮小できる編集画面 */
+
+#zoomArea {
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  position: relative;
+  border: 2px solid #d8c7ef;
+  border-radius: 12px;
+  background: #eeeeee;
+  touch-action: none;
+}
+
+#editCanvas {
+  position: absolute;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  touch-action: none;
+  transform-origin: 0 0;
+}
+
+#zoomText {
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+#resetZoomBtn {
+  background: #d8c7ef;
+  width: 100%;
+}
+
+/* ===== まばたき Ver.0.4 ===== */
+
+.eye-panel {
+  margin-top: 15px;
+}
+
+#eyeEditBtn {
+  width: 100%;
+  background: #76b5e8;
+  color: white;
+}
+
+#eyeEditor {
+  margin-top: 12px;
+  padding: 15px;
+  background: white;
+  border-radius: 15px;
+}
+
+#eyeEditor[hidden] {
+  display: none;
+}
+
+#eyeZoomArea {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  background: #e9f5e7;
+  touch-action: none;
+}
+
+#eyeCanvas {
+  position: absolute;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border: none;
+  background: transparent;
+  transform-origin: 0 0;
+  touch-action: none;
+}
+
+#eyeSelection {
+  display: none;
+  position: absolute;
+  border: 2px dashed #ff477e;
+  background: rgba(255, 71, 126, 0.12);
+  pointer-events: none;
+}
+
+#eyeZoomText,
+#eyeStatus {
+  font-weight: bold;
+}
+
+.eye-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#eyeUndoBtn {
+  background: #dddddd;
+}
+
+#eyeResetZoomBtn {
+  background: #d8c7ef;
+}
+
+#eyeFinishBtn {
+  background: #7bd88f;
+}
+/* ===== Ver.0.7 歩くアニメーション ===== */
+
+/* ===== Ver.0.7 歩くアニメーション ===== */
+
+/* 呼吸 */
+.monster.alive {
+  animation: breathe 2s ease-in-out infinite;
+}
+
+/* 右に歩く */
+.monster.walk-right {
+  animation: walkRight 0.45s ease-in-out !important;
+}
+
+/* 左に歩く */
+.monster.walk-left {
+  animation: walkLeft 0.45s ease-in-out !important;
+}
+
+@keyframes walkRight {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-12px) rotate(8deg);
+  }
+
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  75% {
+    transform: translateY(-8px) rotate(-3deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes walkLeft {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-12px) rotate(-8deg);
+  }
+
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  75% {
+    transform: translateY(-8px) rotate(3deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+/* Ver.0.8 長押し操作 */
+
+#leftBtn,
+#rightBtn {
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+/* ===== Ver.0.9 ごはん・満腹度 ===== */
+
+.food-panel {
+  margin-top: 18px;
+  padding: 18px;
+  background: #fff9ee;
+  border-radius: 18px;
+  text-align: center;
+}
+
+.food-panel h3 {
+  margin-top: 0;
+  color: #e68b45;
+}
+
+#hungerText {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.hunger-bar {
+  width: 100%;
+  height: 20px;
+  background: #eee2d5;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+#hungerFill {
+  width: 70%;
+  height: 100%;
+  background: #7bd88f;
+  border-radius: 20px;
+  transition: width 0.3s ease;
+}
+
+#feedBtn {
+  width: 100%;
+  background: #ffb65c;
+  color: white;
+  font-size: 17px;
+}
+
+#foodMessage {
+  font-size: 14px;
+  min-height: 20px;
+}
+
+/* 食べたときのリアクション */
+#monster.eating {
+  animation: eatingMotion 0.6s ease-in-out !important;
+}
+
+@keyframes eatingMotion {
+  0%, 100% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: translateY(-12px) scale(1.08, 0.94);
+  }
+
+  60% {
+    transform: translateY(0) scale(0.96, 1.05);
+  }
+}
